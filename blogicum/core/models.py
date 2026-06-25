@@ -5,9 +5,9 @@ class PublishedModel(models.Model):
     """Абстрактная модель. Добавляет флаг is_published."""
 
     is_published = models.BooleanField(
-        'Опубликовано',
+        "Опубликовано",
         default=True,
-        help_text='Снимите галочку, чтобы скрыть публикацию.',
+        help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
 
     class Meta:
@@ -18,7 +18,7 @@ class TimeStampedModel(models.Model):
     """Абстрактная модель. Добавляет дату создания."""
 
     created_at = models.DateTimeField(
-        'Добавлено',
+        "Добавлено",
         auto_now_add=True,
     )
 

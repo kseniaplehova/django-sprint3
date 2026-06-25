@@ -10,24 +10,24 @@ class Category(PublishedModel, TimeStampedModel):
     """Модель тематической категории."""
 
     title = models.CharField(
-        'Заголовок',
+        "Заголовок",
         max_length=256,
     )
     description = models.TextField(
-        'Описание',
+        "Описание",
     )
     slug = models.SlugField(
-        'Идентификатор',
+        "Идентификатор",
         max_length=64,
         unique=True,
-        help_text='Идентификатор страницы для URL; разрешены символы '
-                  'латиницы, цифры, дефис и подчёркивание.',
+        help_text="Идентификатор страницы для URL; разрешены символы "
+        "латиницы, цифры, дефис и подчёркивание.",
     )
 
     class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'Категории'
-        ordering = ('title',)
+        verbose_name = "категория"
+        verbose_name_plural = "Категории"
+        ordering = ("title",)
 
     def __str__(self):
         return self.title
@@ -37,14 +37,14 @@ class Location(PublishedModel, TimeStampedModel):
     """Модель географической метки."""
 
     name = models.CharField(
-        'Название места',
+        "Название места",
         max_length=256,
     )
 
     class Meta:
-        verbose_name = 'местоположение'
-        verbose_name_plural = 'Местоположения'
-        ordering = ('name',)
+        verbose_name = "местоположение"
+        verbose_name_plural = "Местоположения"
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -54,41 +54,41 @@ class Post(PublishedModel, TimeStampedModel):
     """Модель публикации."""
 
     title = models.CharField(
-        'Заголовок',
+        "Заголовок",
         max_length=256,
     )
     text = models.TextField(
-        'Текст',
+        "Текст",
     )
     pub_date = models.DateTimeField(
-        'Дата и время публикации',
-        help_text='Если установить дату и время в будущем — можно '
-                  'делать отложенные публикации.',
+        "Дата и время публикации",
+        help_text="Если установить дату и время в будущем — можно "
+        "делать отложенные публикации.",
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Автор публикации',
+        verbose_name="Автор публикации",
     )
     location = models.ForeignKey(
-        'Location',
+        "Location",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name='Местоположение',
+        verbose_name="Местоположение",
     )
     category = models.ForeignKey(
-        'Category',
+        "Category",
         on_delete=models.SET_NULL,
         null=True,
         blank=False,
-        verbose_name='Категория',
+        verbose_name="Категория",
     )
 
     class Meta:
-        verbose_name = 'публикация'
-        verbose_name_plural = 'Публикации'
-        ordering = ('-pub_date',)
+        verbose_name = "публикация"
+        verbose_name_plural = "Публикации"
+        ordering = ("-pub_date",)
 
     def __str__(self):
         return self.title[:50]
