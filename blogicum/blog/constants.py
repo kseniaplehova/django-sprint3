@@ -1,0 +1,7 @@
+"""Константы для приложения blog."""
+
+MAX_LENGTH_TITLE = 256
+MAX_LENGTH_SLUG = 64
+MAX_LENGTH_NAME = 256
+MAX_LENGTH_STR = 50
+POSTS_ON_PAGE = 5

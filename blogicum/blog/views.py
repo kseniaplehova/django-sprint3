@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-from django.utils import timezone
 
+from .constants import POSTS_ON_PAGE
 from .models import Category, Post
 
 
@@ -9,14 +9,8 @@ def index(request):
     template = "blog/index.html"
 
     post_list = (
-        Post.objects.filter(
-            is_published=True,
-            category__is_published=True,
-            pub_date__lte=timezone.now(),
-        )
-        .select_related("author", "location", "category")
-        .order_by("-pub_date")[:5]
-    )
+        Post.objects.published().with_related().ordered()[:POSTS_ON_PAGE]
+    )  # noqa: E501
 
     context = {
         "post_list": post_list,
@@ -29,11 +23,8 @@ def post_detail(request, id):
     template = "blog/detail.html"
 
     post = get_object_or_404(
-        Post.objects.select_related("author", "location", "category"),
+        Post.objects.published().with_related(),
         id=id,
-        is_published=True,
-        category__is_published=True,
-        pub_date__lte=timezone.now(),
     )
 
     context = {
@@ -52,15 +43,7 @@ def category_posts(request, category_slug):
         is_published=True,
     )
 
-    post_list = (
-        Post.objects.filter(
-            category=category,
-            is_published=True,
-            pub_date__lte=timezone.now(),
-        )
-        .select_related("author", "location", "category")
-        .order_by("-pub_date")
-    )
+    post_list = category.posts.published().with_related().ordered()  # noqa: E501
 
     context = {
         "category": category,
