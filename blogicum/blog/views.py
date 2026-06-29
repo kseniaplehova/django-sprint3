@@ -9,8 +9,10 @@ def index(request):
     template = "blog/index.html"
 
     post_list = (
-        Post.objects.published().with_related().ordered()[:POSTS_ON_PAGE]
-    )  # noqa: E501
+        Post.objects.published()
+        .with_related()
+        .ordered()[:POSTS_ON_PAGE]
+    )
 
     context = {
         "post_list": post_list,
@@ -43,7 +45,11 @@ def category_posts(request, category_slug):
         is_published=True,
     )
 
-    post_list = category.posts.published().with_related().ordered()  # noqa: E501
+    post_list = (
+        category.posts.published()
+        .with_related()
+        .ordered()
+    )
 
     context = {
         "category": category,
